@@ -1,0 +1,410 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- 
+    IMPORTANT - please do not customise this .targets file. Modifications will affect all Solutions using the software 
+    factory and maybe overridden by future updates to the software factory. Customise your build process by editing 
+    the *.targets/*.proj files in your solution.
+  -->
+
+  <PropertyGroup Condition=" '$(AppCmdPath)'=='' ">
+    <AppCmdPath>$(WinDir)\system32\inetsrv\appcmd.exe</AppCmdPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(IisLocalGroupName)'=='' ">
+    <IisLocalGroupName>IIS_IUSRS</IisLocalGroupName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(DefaultWebSiteName)'=='' ">
+    <DefaultWebSiteName>Default Web Site</DefaultWebSiteName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(ModifyDefaultWebSite)'=='' ">
+    <ModifyDefaultWebSite>false</ModifyDefaultWebSite>
+  </PropertyGroup>
+  
+  <Target Name="IisReset">
+    <Exec Command="iisreset" />
+  </Target>
+
+  <Target Name="DeleteWebSite">
+    <MSBuild.ExtensionPack.Web.Iis7Website
+      TaskAction="CheckExists"
+      Name="$(WebSiteName)">
+      <Output
+        TaskParameter="Exists"
+        PropertyName="WebSiteExists"/>
+    </MSBuild.ExtensionPack.Web.Iis7Website>
+    <!-- Process all web sites (that exist) and are not called "Default Web Site". -->
+    <MSBuild.ExtensionPack.Web.Iis7Website
+      Condition=" '$(WebSiteExists)'=='True' And '$(WebSiteName)'!='$(DefaultWebSiteName)' "
+      TaskAction="Delete"
+      Name="$(WebSiteName)"/>
+    <!-- Process any web sites (that exists) called "Default Web Site" so long as 'ModifyDefaultWebSite' is true. -->
+    <MSBuild.ExtensionPack.Web.Iis7Website
+      Condition=" '$(WebSiteExists)'=='True' And '$(WebSiteName)'=='$(DefaultWebSiteName)' And '$(ModifyDefaultWebSite)'=='true'  "
+      TaskAction="Delete"
+      Name="$(WebSiteName)"/>
+  </Target>
+
+  <Target Name="DeleteWebApplication">
+    <MSBuild.ExtensionPack.Web.Iis7Website
+      TaskAction="CheckExists"
+      Name="$(WebSiteName)">
+      <Output
+        TaskParameter="Exists"
+        PropertyName="WebSiteExists"/>
+    </MSBuild.ExtensionPack.Web.Iis7Website>
+    <MSBuild.ExtensionPack.Web.Iis7Application
+      Condition=" '$(WebSiteExists)'=='True' "
+      TaskAction="CheckExists"
+      Website="$(WebSiteName)"
+      Applications="/$(WebApplicationName)">
+      <Output
+        TaskParameter="Exists"
+        PropertyName="WebApplicationExists"/>
+    </MSBuild.ExtensionPack.Web.Iis7Application>
+    <MSBuild.ExtensionPack.Web.Iis7Application
+      Condition=" '$(WebApplicationExists)'=='True' "
+      TaskAction="Delete"
+      Website="$(WebSiteName)"
+      Applications="/$(WebApplicationName)"/>
+  </Target>
+
+  <Target Name="DeleteWebApplicationPool">
+    <MSBuild.ExtensionPack.Web.Iis7AppPool
+      TaskAction="CheckExists"
+      Name="$(WebApplicationPoolName)">
+      <Output
+        TaskParameter="Exists"
+        PropertyName="WebApplicationPoolExists"/>
+    </MSBuild.ExtensionPack.Web.Iis7AppPool>
+    <MSBuild.ExtensionPack.Web.Iis7AppPool
+      Condition=" '$(WebApplicationPoolExists)'=='True' "
+      TaskAction="Delete"
+      Name="$(WebApplicationPoolName)" />
+  </Target>
+
+  <Target Name="AddUserAccountToLocalIisGroup">
+    <MSBuild.ExtensionPack.Computer.ActiveDirectory
+      TaskAction="CheckUserExists"
+      Domain="$(Domain)"
+      User="$(Username)">
+      <Output
+        TaskParameter="Exists"
+        PropertyName="UserExists"/>
+    </MSBuild.ExtensionPack.Computer.ActiveDirectory>
+    <Error
+      Condition=" '$(UserExists)'=='False' "
+      Text="The user account '$(Domain)\$(Username)' specified for Web Application Pool '$(WebApplicationPoolName)' was found not to exist." />
+    <MSBuild.ExtensionPack.Computer.ActiveDirectory 
+      TaskAction="AddUserToGroup"
+      Domain="$(Domain)"
+      User="$(Username)"
+      Group="$(IisLocalGroupName)"
+      GroupType="Local"
+      ContextTypeStore="Machine" />
+  </Target>
+  
+  <Target Name="CreateWebApplicationPools">
+    <MSBuild.ExtensionPack.Computer.ActiveDirectory
+      TaskAction="CheckGroupExists"
+      Group="$(IisLocalGroupName)"
+      GroupType="Local"
+      ContextTypeStore="Machine">
+      <Output
+        TaskParameter="Exists"
+        PropertyName="IisIUsersWpgExists"/>
+    </MSBuild.ExtensionPack.Computer.ActiveDirectory>
+    <Warning
+      Condition=" '%(WebApplicationPool.Username)'!='' And '$(IisIUsersWpgExists)'=='False' "
+      Text="The '$(IisLocalGroupName)' local group was not found to exist. Could not add AppPool account '%(WebApplicationPool.Username)' to this group." />
+    <MSBuild
+      Condition=" '%(WebApplicationPool.Username)'!='' And '$(IisIUsersWpgExists)'=='True' "
+      Projects="$(MSBuildProjectFile)"
+      Targets="AddUserAccountToLocalIisGroup"
+      Properties="Domain=%(WebApplicationPool.Domain);Username=%(WebApplicationPool.Username);WebApplicationPoolName=%(WebApplicationPool.Identity)" />
+    <Message
+      Importance="high"
+      Text="Creating the following Web Application Pools:" />
+    <Message
+      Condition=" '%(WebApplicationPool.Identity)'!='' "
+      Importance="high"
+      Text="- %(WebApplicationPool.Identity)" />
+    <Message
+      Condition=" '%(WebApplicationPool.Identity)'=='' "
+      Importance="high"
+      Text="- (None configured)" />
+    <MSBuild.ExtensionPack.Web.Iis7AppPool
+      Condition=" '%(WebApplicationPool.Identity)'!='' And '%(WebApplicationPool.IdentityType)'=='SpecificUser' "
+      TaskAction="Create"
+      Name="%(WebApplicationPool.Identity)"
+      IdentityType="%(WebApplicationPool.IdentityType)"
+      PoolIdentity="%(WebApplicationPool.Domain)\%(WebApplicationPool.Username)"
+      IdentityPassword="%(WebApplicationPool.Password)"
+      ManagedRuntimeVersion="%(WebApplicationPool.ManagedRuntimeVersion)"
+      Enable32BitAppOnWin64="%(WebApplicationPool.Enable32BitAppOnWin64)"
+      PipelineMode="%(WebApplicationPool.PipelineMode)" />
+    <MSBuild.ExtensionPack.Web.Iis7AppPool
+      Condition=" '%(WebApplicationPool.Identity)'!='' And '%(WebApplicationPool.IdentityType)'!='SpecificUser' "
+      TaskAction="Create"
+      Name="%(WebApplicationPool.Identity)"
+      IdentityType="%(WebApplicationPool.IdentityType)"
+      ManagedRuntimeVersion="%(WebApplicationPool.ManagedRuntimeVersion)"
+      Enable32BitAppOnWin64="%(WebApplicationPool.Enable32BitAppOnWin64)"
+      PipelineMode="%(WebApplicationPool.PipelineMode)" />
+  </Target>
+
+  <Target Name="CreateWebSite">
+    <ConvertToAbsolutePath Paths="$(WebSitePath)">
+      <Output
+        TaskParameter="AbsolutePaths"
+        PropertyName="WebSiteAbsolutePath"/>
+    </ConvertToAbsolutePath>
+    <!-- Process all web sites not called "Default Web Site". -->
+    <MSBuild.ExtensionPack.Web.Iis7Website
+      Condition=" '$(WebSiteName)'!='DefaultWebSiteName' "
+      TaskAction="Create"
+      Name="$(WebSiteName)"
+      Path="$(WebSiteAbsolutePath)"
+      Port="$(WebSitePort)"
+      AppPool="$(WebSiteWebApplicationPoolName)" />
+    <!-- Process any web sites called "Default Web Site" so long as 'ModifyDefaultWebSite' is true. -->
+    <MSBuild.ExtensionPack.Web.Iis7Website
+      Condition=" '$(WebSiteName)'=='DefaultWebSiteName' And '$(ModifyDefaultWebSite)'=='true' "
+      TaskAction="Create"
+      Name="$(WebSiteName)"
+      Path="$(WebSiteAbsolutePath)"
+      Port="$(WebSitePort)"
+      AppPool="$(WebSiteWebApplicationPoolName)" />
+    <!--
+    appcmd.exe set config "$(WebSiteName)" -section:system.webServer/security/authentication/anonymousAuthentication /enabled:"$(WebSiteAnonymousAuthentication)" /commit:apphost
+    appcmd.exe set config "$(WebSiteName)" -section:system.webServer/security/authentication/basicAuthentication /enabled:"$(WebSiteBasicAuthentication)" /commit:apphost
+    appcmd.exe set config "$(WebSiteName)" -section:system.webServer/security/authentication/digestAuthentication /enabled:"$(WebSiteDigestAuthentication)" /commit:apphost
+    appcmd.exe set config "$(WebSiteName)" -section:system.webServer/security/authentication/windowsAuthentication /enabled:"$(WebSiteWindowsAuthentication)" /commit:apphost
+    %22 = "
+    -->
+    <!-- anonymousAuthentication is enabled by default (and we've just created the website), so only run if the value is not set to true -->
+    <Exec
+      Condition=" '$(WebSiteAnonymousAuthentication)'!='true' "
+      Command="$(AppCmdPath) set config %22$(WebSiteName)%22 -section:system.webServer/security/authentication/anonymousAuthentication /enabled:%22$(WebSiteAnonymousAuthentication)%22 /commit:apphost" />
+    <!-- basicAuthentication is disabled by default (and we've just created the website), so only run if the value is not set to false -->
+    <Exec
+      Condition=" '$(WebSiteBasicAuthentication)'!='false' "
+      Command="$(AppCmdPath) set config %22$(WebSiteName)%22 -section:system.webServer/security/authentication/basicAuthentication /enabled:%22$(WebSiteBasicAuthentication)%22 /commit:apphost" />
+    <!-- digestAuthentication is disabled by default (and we've just created the website), so only run if the value is not set to false -->
+    <Exec
+      Condition=" '$(WebSiteDigestAuthentication)'!='false' "
+      Command="$(AppCmdPath) set config %22$(WebSiteName)%22 -section:system.webServer/security/authentication/digestAuthentication /enabled:%22$(WebSiteDigestAuthentication)%22 /commit:apphost" />
+    <!-- windowsAuthentication is disabled by default (and we've just created the website), so only run if the value is not set to false -->
+    <Exec
+      Condition=" '$(WebSiteWindowsAuthentication)'!='false' "
+      Command="$(AppCmdPath) set config %22$(WebSiteName)%22 -section:system.webServer/security/authentication/windowsAuthentication /enabled:%22$(WebSiteWindowsAuthentication)%22 /commit:apphost" />
+  </Target>
+  
+  <Target Name="CreateWebSites">
+    <Message
+      Importance="high"
+      Text="Creating the following Web Sites:" />
+    <Message
+      Condition=" '%(WebSite.Name)'!='' "
+      Importance="high"
+      Text="- %(WebSite.Name)" />
+    <Message
+      Condition=" '%(WebSite.Name)'=='' "
+      Importance="high"
+      Text="- (None configured)" />
+    <MSBuild
+      Condition=" '%(WebSite.Name)'!='' "
+      Projects="$(MSBuildProjectFile)"
+      Targets="CreateWebSite"
+      Properties="
+        WebSiteName=%(WebSite.Name);
+        WebSitePath=%(WebSite.FullPath);
+        WebSitePort=%(WebSite.Port);
+        WebSiteWebApplicationPoolName=%(WebSite.WebApplicationPoolName);
+        WebSiteAnonymousAuthentication=%(WebSite.AnonymousAuthentication);
+        WebSiteBasicAuthentication=%(WebSite.BasicAuthentication);
+        WebSiteDigestAuthentication=%(WebSite.DigestAuthentication);
+        WebSiteWindowsAuthentication=%(WebSite.WindowsAuthentication)
+        " />
+    <Message
+      Importance="high"
+      Text="Creating the following Web Site Bindings:" />
+    <Message
+      Condition=" '%(WebSiteBinding.Identity)'!='' "
+      Importance="high"
+      Text="- %(WebSiteBinding.Identity) on web site '%(WebSiteBinding.WebSiteName)' for '%(WebSiteBinding.Binding)' against '%(WebSiteBinding.Protocol)'." />
+    <Message
+      Condition=" '%(WebSiteBinding.Identity)'=='' "
+      Importance="high"
+      Text="- (None configured)" />
+    <MSBuild.ExtensionPack.Web.Iis7Binding
+      Condition=" '%(WebSiteBinding.Identity)'!='' "
+      TaskAction="Add"
+      Name="%(WebSiteBinding.WebSiteName)"
+      BindingInformation="%(WebSiteBinding.Binding)"
+      BindingProtocol="%(WebSiteBinding.Protocol)" />
+  </Target>
+
+  <Target Name="CreateWebApplication">
+    <CreateItem
+      Condition=" '%(WebApplication.WebSiteName)'=='$(WebSiteName)' "
+      Include="/%(WebApplication.Name)"
+      AdditionalMetadata="
+        PhysicalPath=%(WebApplication.FullPath);
+        AppPool=%(WebApplication.WebApplicationPoolName);
+        AnonymousAuthentication=%(WebApplication.AnonymousAuthentication);
+        BasicAuthentication=%(WebApplication.BasicAuthentication);
+        DigestAuthentication=%(WebApplication.DigestAuthentication);
+        WindowsAuthentication=%(WebApplication.WindowsAuthentication);">
+      <Output
+        TaskParameter="Include"
+        ItemName="Application"/>
+    </CreateItem>
+    <MSBuild.ExtensionPack.Web.Iis7Website
+      Condition=" '%(Application.Identity)'!='' "
+      TaskAction="AddApplication"
+      Name="$(WebSiteName)"
+      Applications="@(Application)" />
+    <!--
+    appcmd.exe set config "$(WebSiteName)/%(Application.Identity)" -section:system.webServer/security/authentication/anonymousAuthentication /enabled:"%(Application.AnonymousAuthentication)" /commit:apphost
+    appcmd.exe set config "$(WebSiteName)/%(Application.Identity)" -section:system.webServer/security/authentication/basicAuthentication /enabled:"%(Application.BasicAuthentication)" /commit:apphost
+    appcmd.exe set config "$(WebSiteName)/%(Application.Identity)" -section:system.webServer/security/authentication/digestAuthentication /enabled:"%(Application.DigestAuthentication)" /commit:apphost
+    appcmd.exe set config "$(WebSiteName)/%(Application.Identity)" -section:system.webServer/security/authentication/windowsAuthentication /enabled:"%(Application.WindowsAuthentication)" /commit:apphost
+    %22 = "
+    -->
+    <!-- anonymousAuthentication is enabled by default (and we've just created the application), so only run if the value is not set to true -->
+    <Exec
+      Condition=" '%(Application.Identity)'!='' And '%(Application.AnonymousAuthentication)'!='true' "
+      Command="$(AppCmdPath) set config %22$(WebSiteName)%(Application.Identity)%22 -section:system.webServer/security/authentication/anonymousAuthentication /enabled:%22%(Application.AnonymousAuthentication)%22 /commit:apphost" />
+    <!-- basicAuthentication is disabled by default (and we've just created the application), so only run if the value is not set to false -->
+    <Exec
+      Condition=" '%(Application.Identity)'!='' And '%(Application.BasicAuthentication)'!='false' "
+      Command="$(AppCmdPath) set config %22$(WebSiteName)%(Application.Identity)%22 -section:system.webServer/security/authentication/basicAuthentication /enabled:%22%(Application.BasicAuthentication)%22 /commit:apphost" />
+    <!-- digestAuthentication is disabled by default (and we've just created the application), so only run if the value is not set to false -->
+    <Exec
+      Condition=" '%(Application.Identity)'!='' And '%(Application.DigestAuthentication)'!='false' "
+      Command="$(AppCmdPath) set config %22$(WebSiteName)%(Application.Identity)%22 -section:system.webServer/security/authentication/digestAuthentication /enabled:%22%(Application.DigestAuthentication)%22 /commit:apphost" />
+    <!-- windowsAuthentication is disabled by default (and we've just created the application), so only run if the value is not set to false -->
+    <Exec
+      Condition=" '%(Application.Identity)'!='' And '%(Application.WindowsAuthentication)'!='false' "
+      Command="$(AppCmdPath) set config %22$(WebSiteName)%(Application.Identity)%22 -section:system.webServer/security/authentication/windowsAuthentication /enabled:%22%(Application.WindowsAuthentication)%22 /commit:apphost" />
+  </Target>
+  
+  <Target Name="CreateWebApplications">
+    <Message
+      Importance="high"
+      Text="Creating the following Web Applications:" />
+    <Message
+      Condition=" '%(WebApplication.Name)'!='' "
+      Importance="high"
+      Text="- %(WebApplication.Name)" />
+    <Message
+      Condition=" '%(WebApplication.Name)'=='' "
+      Importance="high"
+      Text="- (None configured)" />
+    <!--<CreateItem
+      Include="%(WebApplication.WebSiteName)">
+      <Output
+        TaskParameter="Include"
+        ItemName="WebSite"/>
+    </CreateItem>-->
+    <MSBuild
+      Condition=" '%(WebSite.Name)'!='' "
+      Projects="$(MSBuildProjectFile)"
+      Targets="CreateWebApplication" 
+      Properties="WebSiteName=%(WebSite.Name)" />
+    <CreateProperty
+      Condition=" '%(WebSite.Name)'=='$(DefaultWebSiteName)' "
+      Value="true">
+      <Output
+        TaskParameter="Value"
+        PropertyName="DefaultWebSiteFoundInWebSiteList" />
+    </CreateProperty>
+    <MSBuild
+      Condition=" '$(DefaultWebSiteFoundInWebSiteList)'!='true' "
+      Projects="$(MSBuildProjectFile)"
+      Targets="CreateWebApplication"
+      Properties="WebSiteName=$(DefaultWebSiteName)" />
+  </Target>
+
+  <Target Name="CreateWebApplicationManagedHandlerMappings">
+    <Message
+      Importance="high"
+      Text="Creating the following Web Application Handler Mappings:" />
+    <Message
+      Condition=" '%(WebApplicationManagedHandlerMapping.Identity)'!='' "
+      Importance="high"
+      Text="- %(WebApplicationManagedHandlerMapping.ManagedHandlerPath) (for %(WebApplicationManagedHandlerMapping.IisObjectIdentifier))" />
+    <Message
+      Condition=" '%(WebApplicationManagedHandlerMapping.Identity)'=='' "
+      Importance="high"
+      Text="- (None configured)" />
+    <!--
+    appcmd.exe set config "%(WebApplicationManagedHandlerMapping.IisObjectIdentifier)" -section:system.webServer/handlers /+"[name='%(WebApplicationManagedHandlerMapping.ManagedHandlerName)',path='%(WebApplicationManagedHandlerMapping.ManagedHandlerPath)',verb='%(WebApplicationManagedHandlerMapping.ManagedHandlerVerb)',type='%(WebApplicationManagedHandlerMapping.ManagedHandlerType)',scriptProcessor='%(WebApplicationManagedHandlerMapping.ManagedHandlerScriptProcessor)',preCondition='%(WebApplicationManagedHandlerMapping.ManagedHandlerPreCondition)']"
+    %22 = "
+    %27 = '
+    -->
+    <Exec
+      Condition=" '%(WebApplicationManagedHandlerMapping.Identity)'!='' "
+      Command="$(AppCmdPath) set config %22%(WebApplicationManagedHandlerMapping.IisObjectIdentifier)%22 -section:system.webServer/handlers /+%22[name=%27%(WebApplicationManagedHandlerMapping.ManagedHandlerName)%27,path=%27%(WebApplicationManagedHandlerMapping.ManagedHandlerPath)%27,verb=%27%(WebApplicationManagedHandlerMapping.ManagedHandlerVerb)%27,type=%27%(WebApplicationManagedHandlerMapping.ManagedHandlerType)%27,scriptProcessor=%27%(WebApplicationManagedHandlerMapping.ManagedHandlerScriptProcessor)%27,preCondition=%27%(WebApplicationManagedHandlerMapping.ManagedHandlerPreCondition)%27]%22" />
+  </Target>
+
+  <Target Name="SetupIis">
+    <Message
+      Importance="high"
+      Text="Deleting the following Web Sites:" />
+    <Message
+      Condition=" '%(WebSite.Name)'!='' "
+      Importance="high"
+      Text="- %(WebSite.Name)" />
+    <Message
+      Condition=" '%(WebSite.Name)'=='' "
+      Importance="high"
+      Text="- (None configured)" />
+    <MSBuild
+      Condition=" '%(WebSite.Name)'!='' "
+      Projects="$(MSBuildProjectFile)"
+      Targets="DeleteWebSite"
+      Properties="WebSiteName=%(WebSite.Name)" />
+    <Message
+      Importance="high"
+      Text="Deleting the following Web Applications:" />
+    <Message
+      Condition=" '%(WebApplication.Name)'!='' "
+      Importance="high"
+      Text="- %(WebApplication.Name)" />
+    <Message
+      Condition=" '%(WebApplication.Name)'=='' "
+      Importance="high"
+      Text="- (None configured)" />
+    <MSBuild
+      Condition=" '%(WebApplication.Name)'!='' "
+      Projects="$(MSBuildProjectFile)"
+      Targets="DeleteWebApplication"
+      Properties="WebApplicationName=%(WebApplication.Name);WebSiteName=%(WebApplication.WebSiteName)" />
+    <Message
+      Importance="high"
+      Text="Deleting the following Web Application Pools:" />
+    <Message
+      Condition=" '%(WebApplicationPool.Identity)'!='' "
+      Importance="high"
+      Text="- %(WebApplicationPool.Identity)" />
+    <Message
+      Condition=" '%(WebApplicationPool.Identity)'=='' "
+      Importance="high"
+      Text="- (None configured)" />
+    <MSBuild
+      Condition=" '%(WebApplicationPool.Identity)'!='' "
+      Projects="$(MSBuildProjectFile)"
+      Targets="DeleteWebApplicationPool"
+      Properties="WebApplicationPoolName=%(WebApplicationPool.Identity)" />
+    <CallTarget Targets="CreateWebApplicationPools" />
+    <CallTarget Targets="CreateWebSites" />
+    <CallTarget Targets="CreateWebApplications" />
+    <CallTarget Targets="CreateWebApplicationManagedHandlerMappings" />
+  </Target>
+
+</Project>
