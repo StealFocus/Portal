@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- IMPORTANT - you must import these targets for the build scripts to function. -->
+  <Import Project="..\packages\StealFocus.Build.1.0.20120.2\Scripts\StealFocus.Build.tasks" />
+
+  <PropertyGroup>
+    <CompanyName>StealFocus</CompanyName>
+    <Culture>en-GB</Culture>
+    <ProductName>Portal</ProductName>
+    <StrongNamePublicKey>00240000048000009400000006020000002400005253413100040000010001008fafb7f58d09e022ad5d06ab26dedd81677fb068577ee8762d45f20715193d56d98c958c6abb316369b526f999c7ab2f11b652184d1c46f6a8d946b4c24e63aff9e98efc631e0195fddfc45cb14f2678894c813eeff28a763ec0e65fea6270063ad6086369ef4a6f866c96e88720918c3336963944b23971fd61926e48db67b0</StrongNamePublicKey>
+    <StrongNamePublicKeyToken>32650cbd008938f0</StrongNamePublicKeyToken>
+    <StyleCopVersion>4.7</StyleCopVersion>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- IMPORTANT - you must import these targets for the build scripts to function. -->
+  <Import Project="StealFocus.Portal.targets" />
+  <Import Project="..\packages\StealFocus.Build.1.0.20120.2\Scripts\StealFocus.Build.targets" />
+  
+  <PropertyGroup Condition=" '$(BuildReleaseConfiguration)'=='' ">
+    <BuildReleaseConfiguration>true</BuildReleaseConfiguration>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <CSharpProjectFileConfigurationIncludeFilter>$(SolutionDirectoryPath)\**\*.csproj</CSharpProjectFileConfigurationIncludeFilter>
+    <VisualBasicProjectFileConfigurationIncludeFilter>$(SolutionDirectoryPath)\**\*.vbproj</VisualBasicProjectFileConfigurationIncludeFilter>
+    <WindowsAzureProjectFileConfigurationIncludeFilter>$(SolutionDirectoryPath)\**\*.ccproj</WindowsAzureProjectFileConfigurationIncludeFilter>
+    <ProjectFileConfigurationExcludeFilter>$(SolutionDirectoryPath)\StealFocus.Portal.Web.UI\StealFocus.Portal.Web.UI.csproj;$(SolutionDirectoryPath)\StealFocus.Portal.Web.UI.Tests\StealFocus.Portal.Web.UI.Tests.csproj</ProjectFileConfigurationExcludeFilter>
+    <CSharpProjectImportFilePath>$(SolutionDirectoryPath)\Scripts\StealFocus.Portal.Build.Project.CSharp.targets</CSharpProjectImportFilePath>
+    <VisualBasicProjectImportFilePath>$(SolutionDirectoryPath)\Scripts\StealFocus.Portal.Build.Project.VisualBasic.targets</VisualBasicProjectImportFilePath>
+    <CodeAnalysisRuleSetFilePath>$(SolutionDirectoryPath)\StealFocus.Portal.ruleset</CodeAnalysisRuleSetFilePath>
+    <StrongNameKeyPairPath>$(SolutionDirectoryPath)\StealFocus.Portal.StrongNameKeyPair.snk</StrongNameKeyPairPath>
+    <StrongNamePublicKeyPath>$(SolutionDirectoryPath)\StealFocus.Portal.StrongNamePublicKey.snk</StrongNamePublicKeyPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <SolutionToBuild Include="$(SolutionDirectoryPath)\StealFocus.Portal.sln">
+      <!-- 
+      Use "Targets" to control which Targets are called e.g. you can switch from the default of "Build" to "Rebuild".
+      Use "Properties" to send additional properties to the Solution build.
+      <Targets>Rebuild</Targets>
+      <Properties>FirstHelloWorldProperty=HelloYou!;SecondHelloWorldProperty=HelloMe!</Properties>
+      -->
+      <Targets />
+      <Properties />
+    </SolutionToBuild>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ConfigurationToBuild Include="Debug|Any CPU">
+      <FlavorToBuild>Debug</FlavorToBuild>
+      <PlatformToBuild>Any CPU</PlatformToBuild>
+    </ConfigurationToBuild>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(BuildReleaseConfiguration)'=='true' ">
+    <ConfigurationToBuild Include="Release|Any CPU">
+      <FlavorToBuild>Release</FlavorToBuild>
+      <PlatformToBuild>Any CPU</PlatformToBuild>
+    </ConfigurationToBuild>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PortalPackage Include="$(SolutionDirectoryPath)\*\packages.config" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <!--<DatabaseProject Include="$(SolutionDirectoryPath)\StealFocus.Portal.Database\StealFocus.Portal.Database.dbproj">
+      <Deploy>true</Deploy>
+      <ConfigurationToDeploy>Debug</ConfigurationToDeploy>
+    </DatabaseProject>-->
+  </ItemGroup>
+  
+  <ItemGroup>
+    <WebProject Include="$(SolutionDirectoryPath)\StealFocus.Portal.Web.UI\StealFocus.Portal.Web.UI.csproj">
+      <Package>true</Package>
+      <PackageAsSingleFile>false</PackageAsSingleFile>
+      <PackageTempDir>$(SystemDrive)\StlFcsPrtl\StealFocus.Portal.Web.UI</PackageTempDir>
+      <IncludeIisSettings>true</IncludeIisSettings>
+      <IncludeAppPool>true</IncludeAppPool>
+      <DeployEncryptKey>Password1</DeployEncryptKey>
+    </WebProject>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<SharePointProject Include="$(SolutionDirectoryPath)\StealFocus.Portal.SharePoint\StealFocus.Portal.SharePoint.csproj">
+      <Package>true</Package>
+    </SharePointProject>-->
+  </ItemGroup>
+  
+  <ItemGroup>
+    <!--<AzureProject Include="$(SolutionDirectoryPath)\StealFocus.Portal.Azure\StealFocus.Portal.Azure.ccproj">
+      <Package>true</Package>
+    </AzureProject>-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<AzureConfiguration Include="Local">
+      <Package>false</Package>
+    </AzureConfiguration>
+    <AzureConfiguration Include="Cloud">
+      <Package>true</Package>
+    </AzureConfiguration>-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Add "EventLogSource" items (with "EventLogName" metadata) as required. These will be created (in the Registry) by the build script. -->
+    <!--<EventLogSource Include="StealFocus.Portal.Web.Services">
+      <EventLogName>StealFocus</EventLogName>
+    </EventLogSource>
+    <EventLogSource Include="StealFocus.Portal.Web.UI">
+      <EventLogName>StealFocus</EventLogName>
+    </EventLogSource>-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Add "WebApplicationPool" items as required. These will create AppPools in IIS with the provided settings. -->
+    <WebApplicationPool Include="StealFocus.Portal.Web.UI">
+      <!-- IdentityType = LocalSystem | LocalService | NetworkService | SpecificUser -->
+      <IdentityType>NetworkService</IdentityType>
+      <!-- Enter the user credentials below when choosing 'SpecificUser' as the 'IdentityType'. -->
+      <Domain></Domain>
+      <Username></Username>
+      <Password></Password>
+      <!-- ManagedRuntimeVersion = v2.0 | v4.0 -->
+      <ManagedRuntimeVersion>v4.0</ManagedRuntimeVersion>
+      <!-- PipelineMode = Integrated | Classic -->
+      <PipelineMode>Integrated</PipelineMode>
+      <Enable32BitAppOnWin64>false</Enable32BitAppOnWin64>
+    </WebApplicationPool>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Add "WebSite" items as required. These will create web sites in IIS with the provided settings. -->
+    <!--<WebSite Include="$(SolutionDirectoryPath)\WebSite">
+      <Name>StealFocusWebSite</Name>
+      <Port>999</Port>
+      <WebApplicationPoolName>StealFocusWebSite</WebApplicationPoolName>
+      <AnonymousAuthentication>false</AnonymousAuthentication>
+      <BasicAuthentication>false</BasicAuthentication>
+      <DigestAuthentication>false</DigestAuthentication>
+      <WindowsAuthentication>true</WindowsAuthentication>
+    </WebSite>-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Add "WebSiteBinding" items as required. These will create bindings for the Web Site in IIS with the provided settings. -->
+    <!--<WebSiteBinding Include="StealFocus.com">
+      <WebSiteName>StealFocusWebSite</WebSiteName>
+      --><!-- Binding = [IP address]:[port number]:[host name] --><!--
+      <Binding>*:80:StealFocus.com</Binding>
+      --><!-- Protocol = http | https | net.tcp | net.pipe | net.msmq | msmq.formatname | ftp --><!--
+      <Protocol>http</Protocol>
+    </WebSiteBinding>-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Add "WebApplication" items as required. These will create web applications in IIS with the provided settings. -->
+    <WebApplication Include="$(SolutionDirectoryPath)\StealFocus.Portal.Web.UI">
+      <Name>StealFocus.Portal.Web.UI</Name>
+      <WebSiteName>Default Web Site</WebSiteName>
+      <WebApplicationPoolName>StealFocus.Portal.Web.UI</WebApplicationPoolName>
+      <AnonymousAuthentication>true</AnonymousAuthentication>
+      <BasicAuthentication>false</BasicAuthentication>
+      <DigestAuthentication>false</DigestAuthentication>
+      <WindowsAuthentication>false</WindowsAuthentication>
+    </WebApplication>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <!-- Add "WebApplicationManagedHandlerMapping" items as required. These will be applied to each "WebApplication" as configured. -->
+    <!--<WebApplicationManagedHandlerMapping Include=".stealFocus">
+      <IisObjectIdentifier>Default Web Site/StealFocus.Portal.Web.UI</IisObjectIdentifier>
+      <ManagedHandlerName>StealFocus</ManagedHandlerName>
+      <ManagedHandlerPath>*.stealFocus</ManagedHandlerPath>
+      <ManagedHandlerVerb>GET,POST,HEAD,DEBUG</ManagedHandlerVerb>
+      <ManagedHandlerType>myManagedHandlerType</ManagedHandlerType>
+      <ManagedHandlerScriptProcessor>myManagedHandlerScriptProcessor</ManagedHandlerScriptProcessor>
+      <ManagedHandlerPreCondition>myManagedHandlerPreCondition</ManagedHandlerPreCondition>
+    </WebApplicationManagedHandlerMapping>-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Add "MSDeployAction" items as required. These will be deployed with MSDeploy. -->
+    <MSDeployAction Include="ip-0A3AE60A-StealFocus.Portal.Web.UI">
+      <RequiredBranchName>???</RequiredBranchName>
+      <TargetServer>ip-0A3AE60A</TargetServer>
+      <IisWebApplicationName>Default Web Site/Portal</IisWebApplicationName>
+      <IisWebApplicationPoolName>ASP.NET v4.0</IisWebApplicationPoolName>
+      <IisVirtualDirectoryPhysicalPath>D:\WebSites\DefaultWebSite\Portal</IisVirtualDirectoryPhysicalPath>
+      <PackageDirectoryPath>$(BuildDirectoryPath)\Release\_PublishedWebsites\StealFocus.Portal.Web.UI_Package</PackageDirectoryPath>
+      <DeleteFilesOnTarget>false</DeleteFilesOnTarget>
+    </MSDeployAction>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <AzureSubscriptionId>...</AzureSubscriptionId>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AzureManagementCertificateThumbprint>...</AzureManagementCertificateThumbprint>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--<AzureAffinityGroup Include="...">
+      ...
+    </AzureAffinityGroup>-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<AzureStorageAccount Include="...">
+      ...
+    </AzureStorageAccount>-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<AzurePublishAction Include="...">
+      ...
+    </AzurePublishAction>-->
+  </ItemGroup>
+  
+  <!-- Only called if "IsInitialiseEnvironmentBuild" property is set to "true". -->
+  <Target Name="BeforeInitialiseBuildCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+
+  <!-- Only called if "IsInitialiseEnvironmentBuild" property is set to "true". -->
+  <Target Name="AfterInitialiseBuildCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+
+  <Target Name="BeforeInitialiseEnvironmentCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+
+  <Target Name="AfterInitialiseEnvironmentCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+
+  <Target Name="BeforeCodeGenerationCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+
+  <Target Name="AfterCodeGenerationCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+
+  <Target Name="BeforeSolutionCompileCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+
+  <Target Name="AfterSolutionCompileCustom">
+    <!-- Enter your custom steps here. -->
+    <PropertyGroup>
+      <PackageTempRootDirToRemove>$(SystemDrive)\StlFcsPrtl</PackageTempRootDirToRemove>
+    </PropertyGroup>
+    <!-- We use a temporary directory when packaging with MSDeploy, delete this directory here (it is no longer required). -->
+    <RemoveDir 
+      Condition=" Exists('$(PackageTempRootDirToRemove)') " 
+      Directories="$(PackageTempRootDirToRemove)" />
+  </Target>
+
+  <Target Name="BeforeDeployForTestCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+
+  <Target Name="AfterDeployForTestCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+
+  <Target Name="BeforeRunTestsCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+  
+  <Target Name="BeforeRunTestsForConfigurationCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+  
+  <Target Name="AfterRunTestsForConfigurationCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+
+  <Target Name="AfterRunTestsCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+
+  <Target Name="BeforePackageCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+
+  <Target Name="AfterPackageCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+
+  <Target Name="BeforeBuildDocumentationCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+
+  <Target Name="AfterBuildDocumentationCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+
+  <Target Name="BeforeDropBuildCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+
+  <Target Name="AfterDropBuildCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+
+  <!-- Only called if "IsEnvironmentDeployBuild" property is set to "true". -->
+  <Target Name="BeforeEnvironmentDeployCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+
+  <!-- Only called if "IsEnvironmentDeployBuild" property is set to "true". -->
+  <Target Name="AfterEnvironmentDeployCustom">
+    <!-- Enter your custom steps here. -->
+  </Target>
+  
+</Project>

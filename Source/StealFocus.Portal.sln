@@ -1,0 +1,69 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StealFocus.Portal.Web.UI", "StealFocus.Portal.Web.UI\StealFocus.Portal.Web.UI.csproj", "{D05D33DE-D669-4C18-A233-1603AC937E72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StealFocus.Portal.Web.UI.Tests", "StealFocus.Portal.Web.UI.Tests\StealFocus.Portal.Web.UI.Tests.csproj", "{790CD030-29CF-4141-A37C-DF17EF8FD22F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D4808490-390A-4458-B5D4-1BC9AF846991}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{93E2C20A-DA00-41BB-85D7-39D3B7263695}"
+	ProjectSection(SolutionItems) = preProject
+		FxCopCustomDictionary.xml = FxCopCustomDictionary.xml
+		Local.testsettings = Local.testsettings
+		Notes.txt = Notes.txt
+		Settings.StyleCop = Settings.StyleCop
+		StealFocus.Portal.ruleset = StealFocus.Portal.ruleset
+		StealFocus.Portal.StrongNameKeyPair.snk = StealFocus.Portal.StrongNameKeyPair.snk
+		StealFocus.Portal.StrongNamePublicKey.snk = StealFocus.Portal.StrongNamePublicKey.snk
+		StealFocus.Portal.vsmdi = StealFocus.Portal.vsmdi
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7370B117-D123-45CF-81FA-7DF526AB23BF}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommandFiles", "CommandFiles", "{28EF86DC-0361-4DD1-B38A-4BCF9A3D50AD}"
+	ProjectSection(SolutionItems) = preProject
+		CommandFiles\StealFocus.Portal.Build.cmd = CommandFiles\StealFocus.Portal.Build.cmd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{C4B6A0A2-9109-49C2-8B69-19CE1A95F026}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\StealFocus.Portal.Build.proj = Scripts\StealFocus.Portal.Build.proj
+		Scripts\StealFocus.Portal.Build.Project.Assembly.targets = Scripts\StealFocus.Portal.Build.Project.Assembly.targets
+		Scripts\StealFocus.Portal.Build.Project.CSharp.targets = Scripts\StealFocus.Portal.Build.Project.CSharp.targets
+		Scripts\StealFocus.Portal.Build.Project.targets = Scripts\StealFocus.Portal.Build.Project.targets
+		Scripts\StealFocus.Portal.Build.Project.VisualBasic.targets = Scripts\StealFocus.Portal.Build.Project.VisualBasic.targets
+		Scripts\StealFocus.Portal.CCNet.proj = Scripts\StealFocus.Portal.CCNet.proj
+		Scripts\StealFocus.Portal.targets = Scripts\StealFocus.Portal.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = StealFocus.Portal.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D05D33DE-D669-4C18-A233-1603AC937E72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D05D33DE-D669-4C18-A233-1603AC937E72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D05D33DE-D669-4C18-A233-1603AC937E72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D05D33DE-D669-4C18-A233-1603AC937E72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{790CD030-29CF-4141-A37C-DF17EF8FD22F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{790CD030-29CF-4141-A37C-DF17EF8FD22F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{790CD030-29CF-4141-A37C-DF17EF8FD22F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{790CD030-29CF-4141-A37C-DF17EF8FD22F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{790CD030-29CF-4141-A37C-DF17EF8FD22F} = {D4808490-390A-4458-B5D4-1BC9AF846991}
+	EndGlobalSection
+EndGlobal
