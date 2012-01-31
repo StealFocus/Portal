@@ -10,6 +10,6 @@
     IMPORTANT - you must import these targets for the build scripts to function.
   -->
   <Import Project="StealFocus.Portal.targets" />
-  <Import Project="..\packages\StealFocus.Build.1.0.20120.2\Scripts\StealFocus.Build.Project.targets" />
+  <Import Project="..\packages\StealFocus.Build.1.0.20131.0\Scripts\StealFocus.Build.Project.targets" />
 
 </Project>

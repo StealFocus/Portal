@@ -4,7 +4,7 @@
 
   <!-- IMPORTANT - you must import these targets for the build scripts to function. -->
   <Import Project="StealFocus.Portal.targets" />
-  <Import Project="..\packages\StealFocus.Build.1.0.20120.2\Scripts\StealFocus.Build.targets" />
+  <Import Project="..\packages\StealFocus.Build.1.0.20131.0\Scripts\StealFocus.Build.targets" />
   
   <PropertyGroup Condition=" '$(BuildReleaseConfiguration)'=='' ">
     <BuildReleaseConfiguration>true</BuildReleaseConfiguration>
@@ -49,10 +49,6 @@
     </ConfigurationToBuild>
   </ItemGroup>
 
-  <ItemGroup>
-    <PortalPackage Include="$(SolutionDirectoryPath)\*\packages.config" />
-  </ItemGroup>
-  
   <ItemGroup>
     <!--<DatabaseProject Include="$(SolutionDirectoryPath)\StealFocus.Portal.Database\StealFocus.Portal.Database.dbproj">
       <Deploy>true</Deploy>
@@ -121,15 +117,15 @@
 
   <ItemGroup>
     <!-- Add "WebSite" items as required. These will create web sites in IIS with the provided settings. -->
-    <!--<WebSite Include="$(SolutionDirectoryPath)\WebSite">
-      <Name>StealFocusWebSite</Name>
-      <Port>999</Port>
-      <WebApplicationPoolName>StealFocusWebSite</WebApplicationPoolName>
-      <AnonymousAuthentication>false</AnonymousAuthentication>
+    <WebSite Include="$(SolutionDirectoryPath)\StealFocus.Portal.Web.UI">
+      <Name>StealfocusDev</Name>
+      <Port>8001</Port>
+      <WebApplicationPoolName>StealFocus.Portal.Web.UI</WebApplicationPoolName>
+      <AnonymousAuthentication>true</AnonymousAuthentication>
       <BasicAuthentication>false</BasicAuthentication>
       <DigestAuthentication>false</DigestAuthentication>
-      <WindowsAuthentication>true</WindowsAuthentication>
-    </WebSite>-->
+      <WindowsAuthentication>false</WindowsAuthentication>
+    </WebSite>
   </ItemGroup>
 
   <ItemGroup>
@@ -145,7 +141,7 @@
 
   <ItemGroup>
     <!-- Add "WebApplication" items as required. These will create web applications in IIS with the provided settings. -->
-    <WebApplication Include="$(SolutionDirectoryPath)\StealFocus.Portal.Web.UI">
+    <!--<WebApplication Include="$(SolutionDirectoryPath)\StealFocus.Portal.Web.UI">
       <Name>StealFocus.Portal.Web.UI</Name>
       <WebSiteName>Default Web Site</WebSiteName>
       <WebApplicationPoolName>StealFocus.Portal.Web.UI</WebApplicationPoolName>
@@ -153,7 +149,7 @@
       <BasicAuthentication>false</BasicAuthentication>
       <DigestAuthentication>false</DigestAuthentication>
       <WindowsAuthentication>false</WindowsAuthentication>
-    </WebApplication>
+    </WebApplication>-->
   </ItemGroup>
   
   <ItemGroup>
@@ -172,11 +168,15 @@
   <ItemGroup>
     <!-- Add "MSDeployAction" items as required. These will be deployed with MSDeploy. -->
     <MSDeployAction Include="ip-0A3AE60A-StealFocus.Portal.Web.UI">
-      <RequiredBranchName>???</RequiredBranchName>
+      <RequiredBranchName>v1.0</RequiredBranchName>
       <TargetServer>ip-0A3AE60A</TargetServer>
-      <IisWebApplicationName>Default Web Site/Portal</IisWebApplicationName>
-      <IisWebApplicationPoolName>ASP.NET v4.0</IisWebApplicationPoolName>
-      <IisVirtualDirectoryPhysicalPath>D:\WebSites\DefaultWebSite\Portal</IisVirtualDirectoryPhysicalPath>
+      <IisWebApplicationName>www.stealfocus.co.uk</IisWebApplicationName>
+      <!--
+      Use the 'IisWebSiteBinding' value only when the 'IisWebApplicationName' above is a website (not a web application or virtual directory).
+      -->
+      <IisWebSiteBinding>*:80:</IisWebSiteBinding>
+      <IisWebApplicationPoolName>www.stealfocus.co.uk</IisWebApplicationPoolName>
+      <IisVirtualDirectoryPhysicalPath>D:\WebSites\www.stealfocus.co.uk</IisVirtualDirectoryPhysicalPath>
       <PackageDirectoryPath>$(BuildDirectoryPath)\Release\_PublishedWebsites\StealFocus.Portal.Web.UI_Package</PackageDirectoryPath>
       <DeleteFilesOnTarget>false</DeleteFilesOnTarget>
     </MSDeployAction>

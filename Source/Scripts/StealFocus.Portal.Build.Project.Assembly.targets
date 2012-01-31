@@ -4,7 +4,7 @@
   <!-- 
     IMPORTANT - you must import these targets for the build scripts to function.
   -->
-  <Import Project="..\packages\StealFocus.Build.1.0.20120.2\Scripts\StealFocus.Build.Project.Assembly.targets" />
+  <Import Project="..\packages\StealFocus.Build.1.0.20131.0\Scripts\StealFocus.Build.Project.Assembly.targets" />
   <Import Project="StealFocus.Portal.Build.Project.targets" />
 
   <Target Name="BeforeBuildCustom">

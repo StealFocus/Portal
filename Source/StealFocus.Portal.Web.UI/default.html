@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>StealFocus</title>
+	<script type="text/javascript" src="Scripts/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="Scripts/core.js"></script>
+	<link rel="stylesheet" href="Content/reset.css" />
+	<link rel="stylesheet" href="Content/core.css" />
+</head>
+<body class="md-body">
+	<header class="md-header md-header-main">
+		<h1>StealFocus</h1>
+	</header>
+	<nav class="md-nav md-nav-horizontal md-nav-main">
+		<ul>
+			<li><a onClick="show('#start')">start</a></li>
+			<li><a onClick="show('#core')">core</a></li>
+			<li><a onClick="show('#start')">build</a></li>
+			<li><a onClick="show('#start')">forecast</a></li>
+			<li><a onClick="show('#start')">msbuild</a></li>
+			<li><a onClick="show('#start')">powershell</a></li>
+			<li><a onClick="show('#start')">tfs extensions</a></li>
+			<li><a onClick="show('#start')">tracer</a></li>
+		</ul>
+	</nav>
+	<div class="md-content">
+	    <div id="start" class="md-container">
+	        <div class="md-viewport md-viewport-horizontal">
+				<div class="md-scrollable">
+					<section class="md-auto-resize">
+						<article>
+							<h2>Welcome</h2>
+							<div class="md-auto-columns md-auto-resize">
+								<p>This is where you can find information on the StealFocus components and links to resources like code and downloads.</p>
+	                            <br/>
+	                            <p>Use the menu to see details of the different solutions.</p>
+							</div>
+						</article>
+					</section>
+				</div>
+			</div>
+	    </div>
+		<div id="core" class="md-container hidden">
+			<div class="md-viewport md-viewport-horizontal">
+				<div class="md-scrollable">
+					<section class="md-auto-resize">
+						<article>
+							<h2>StealFocus Core</h2>
+							<div class="md-auto-columns md-auto-resize">
+								<ul>
+									<li><a href="https://github.com/StealFocus/Core">Code</a></li>
+									<li><a href="http://build01.stealfocus.co.uk/ccnet/server/local/project/StealFocus.Core-v1.0/ViewProjectReport.aspx">Build Report</a></li>
+									<li><a href="http://build01.stealfocus.co.uk/Output">Download</a></li>
+								</ul>
+								<br />
+								<p>The StealFocus Core solution is a set of libraries that are enablers for the other products. Core provides some useful abstractions over things like the Global Assembly Cache (GAC).</p>
+							</div>
+						</article>
+					</section>
+				</div>
+			</div>
+		</div>
+		<div id="layout" class="md-container hidden">
+			<section>
+				<article style="width: 360pt;">
+					<h2>Text</h2>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam, hendrerit tincidunt sodales ut, ullamcorper id libero. Proin blandit aliquet viverra. Maecenas eget diam ut orci euismod gravida. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus consectetur mi sed mauris aliquam ultrices. Nullam consectetur nisi mauris. Phasellus id sapien dui. Suspendisse sagittis, justo in placerat accumsan, velit massa mattis purus, at hendrerit neque leo eget leo. Fusce gravida rutrum lorem ut volutpat. Mauris lobortis ante id risus cursus posuere. Praesent justo sapien, blandit a porta sit amet, pretium id erat. Nam tristique aliquet odio vitae posuere. Donec vestibulum viverra elit, vitae sagittis lectus viverra eu. </p>
+					<br/>
+					<h2>Lists</h2>
+					<ul>
+						<li>Lorem ipsum dolor sit amet.</li>
+						<li>Consectetur adipiscing elit.</li>
+						<li>Mauris odio purus.</li>
+					</ul>
+					<br/>
+					<ol>
+						<li>Rutrum quis vestibulum sed.</li>
+						<li>Faucibus eu arcu.</li>
+						<li>Nam risus metus.</li>
+					</ol>
+				</article>
+				<article style="width: 360pt;">
+					<h2>Article 2 (table)</h2>
+					<table style="width: 100%;">
+						<colgroup span="2" title="title" />
+						<thead>
+							<tr>
+								<th scope="col">Name</th>
+								<th scope="col">Side</th>
+								<th scope="col">Role</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<td>Darth Vader</td>
+								<td>Dark</td>
+								<td>Sith</td>
+							</tr>
+						</tfoot>
+						<tbody>
+							<tr>
+								<td>Obi Wan Kenobi</td>
+								<td>Light</td>
+								<td>Jedi</td>
+							</tr>
+							<tr>
+								<td>Greedo</td>
+								<td>South</td>
+								<td>Scumbag</td>
+							</tr>
+							<tr>
+								<td>Obi Wan Kenobi</td>
+								<td>Light</td>
+								<td>Jedi</td>
+							</tr>
+							<tr>
+								<td>Greedo</td>
+								<td>South</td>
+								<td>Scumbag</td>
+							</tr>
+							<tr>
+								<td>Obi Wan Kenobi</td>
+								<td>Light</td>
+								<td>Jedi</td>
+							</tr>
+							<tr>
+								<td>Greedo</td>
+								<td>South</td>
+								<td>Scumbag</td>
+							</tr>
+						</tbody>
+					</table>
+					<br/>
+					<h2>Images</h2>
+					<img src="metrodynamis3/images/metrodynamis-icon.svg" style="width: 300pt; height: 300pt;" />
+				</article>
+			</section>
+		</div>
+		<div id="panorama" class="md-container hidden">
+			<div class="md-viewport md-viewport-horizontal">
+				<div class="md-scrollable">
+					<section class="md-auto-resize">
+						<article>
+							<h2>Article 1</h2>
+							<div class="md-auto-columns md-auto-resize">
+								<img src="metrodynamis3/images/metrodynamis-icon.svg" style="width: 100%;" alt="0" />
+								<p>1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>2 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>3 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>4 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>5 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>6 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>7 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>8 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+							</div>
+						</article>
+						<article>
+							<h2>Long Article 2</h2>
+							<div class="md-auto-columns">
+								<p>1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>2 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>
+									<img src="metrodynamis3/images/metrodynamis-icon.svg" style="width: 100pt; margin: 0 5pt 5pt 0pt; float: left;" alt="0"/>
+									3 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. 
+								</p>
+								<p>4 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>5 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>6 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>
+									<img src="metrodynamis3/images/metrodynamis-icon.svg" style="width: 200pt; margin: 0 0 5pt 5pt; float: right;" alt="0"/>
+									7 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. 
+								</p>
+								<p>8 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>9 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>10 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>11 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>12 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>13 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>14 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>15 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>16 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>17 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>18 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>19 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>20 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>21 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>22 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>23 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>24 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>25 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>26 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>27 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>28 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>29 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+							</div>
+						</article>
+						<article>
+							<h2>Long Article 3</h2>
+							<div class="md-auto-columns">
+								<p>1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>2 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>
+									<img src="metrodynamis3/images/metrodynamis-icon.svg" style="width: 100pt; margin: 0 5pt 5pt 0pt; float: left;" alt="0"/>
+									3 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. 
+								</p>
+								<p>4 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>5 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>6 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>
+									<img src="metrodynamis3/images/metrodynamis-icon.svg" style="width: 200pt; margin: 0 0 5pt 5pt; float: right;" alt="0"/>
+									7 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. 
+								</p>
+								<p>8 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>9 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>10 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>11 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>12 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>13 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>14 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>15 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>16 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>17 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>18 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>19 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>20 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>21 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>22 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>23 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>24 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>25 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>26 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>27 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+								<p>28 Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. </p>
+								<p>29 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu. Nam risus metus, pharetra ullamcorper mollis non, cursus at odio. Duis dui diam. </p>
+							</div>
+						</article>
+					</section>
+				</div>
+			</div>
+		</div>
+		<div id="split" class="md-container hidden">
+			<section>
+				<article class="md-column">
+					<h2>List</h2>
+					<div class="md-viewport md-viewport-vertical">
+						<div class="md-scrollable">
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu.</p>
+							<br/>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu.</p>
+							<br/>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu.</p>
+							<br/>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu.</p>
+							<br/>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu.</p>
+							<br/>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu.</p>
+							<br/>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu.</p>
+							<br/>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu.</p>
+							<br/>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu.</p>
+							<br/>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu.</p>
+							<br/>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu.</p>
+							<br/>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu.</p>
+							<br/>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu.</p>
+							<br/>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu.</p>
+							<br/>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu.</p>
+							<br/>
+						</div>
+					</div>
+				</article>
+				<article>
+					<h2>Content</h2>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu.</p>
+					<br/>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio purus, rutrum quis vestibulum sed, faucibus eu arcu.</p>
+					<br/>
+					<img src="metrodynamis3/images/metrodynamis-icon.svg" style="width: 400pt; height: 400pt; "/>
+				</article>
+			</section>
+		</div>
+		<div id="collections" class="md-container hidden">
+			<div class="md-viewport md-viewport-horizontal">
+				<div class="md-scrollable">
+					<section class="md-auto-max-width">
+						<h2>Collection 1</h2>
+						<div class="md-list-tiles md-auto-arrange-tiles">
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</section>
+					<section class="md-auto-max-width">
+						<h2>Collection 2</h2>
+						<div class="md-list-tiles md-auto-arrange-tiles">
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</section>
+					<section class="md-auto-max-width">
+						<h2>Collection 3</h2>
+						<div class="md-list-tiles md-auto-arrange-tiles">
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+							<div class="md-list-item md-list-tile-large">
+								<a href="#">
+									<div class="md-list-item-image"></div>
+									<div class="md-list-item-overlay">
+										<div class="md-list-item-big-text">Aliquam ut nisl laoreet mauris iaculis fringilla in nec sem.</div>
+										<div class="md-list-item-small-text">Cras risus massa, congue in</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+		<div id="controls" class="md-container hidden">
+			<section>
+				<form>
+					<article>
+						<label for="username">Username</label><br/>
+						<input type="text" name="username" size="50"/>
+						<br/><br/>
+						<label for="password">Password</label><br>
+						<input type="password" name="password" size="50"/>
+						<br/><br/>
+						<label for="textarea">About you</label><br>
+						<textarea name="textarea" rows="20" cols="50"></textarea>
+					</article>
+					<article>
+						My Computer Peripherals<br>
+						<label><input type="checkbox" name="peripherals" value="modem"> 56K Modem</label><br/>
+						<label><input type="checkbox" name="peripherals" value="printer"> Printer</label><br/>
+						<label><input type="checkbox" name="peripherals" value="tape">Tape Backup</label>
+						<br/><br/>
+						My Favorite Flavor<br>
+						<label><input type="radio" name="browser" value="nn">Chocolate</label><br/>
+						<label><input type="radio" name="browser" value="ie">Vanilla</label><br/>
+						<label><input type="radio" name="browser" value="other">Other</label>
+						<br/><br/>
+						<label for="hobbies">My Hobbies</label><br/>
+						<select multiple="multiple" name="hobbies" size="4">
+							<option value="programming">Hacking JavaScript</option>
+							<option value="surfing">Surfing the Web</option>
+							<option value="caffeine">Drinking Coffee</option>
+							<option value="annoying">Annoying my Friends</option>
+						</select>
+						<br/><br/>
+						<label for="color">My Favorite Color</label><br/>
+						<select name="color">
+							<option value="red">Red</option>
+							<option value="green">Green</option>
+							<option value="blue">Blue</option>
+							<option value="white">White</option>
+							<option value="violet">Violet</option>
+							<option value="peach">Peach</option>
+						</select>
+						<br/><br/>
+						<button type="submit">OK</button>
+					</article>
+				</form>
+			</section>
+		</div>
+	</div>
+	<script type="text/javascript">
+		function show(id) {
+			$('.md-container').hide();
+			$(id).fadeIn();
+			MD.UI.recalculateAll(); // Refresh all viewports
+		}
+</script>
+</body>
+</html>
