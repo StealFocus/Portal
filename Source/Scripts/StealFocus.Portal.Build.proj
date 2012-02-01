@@ -174,7 +174,7 @@
       <!--
       Use the 'IisWebSiteBinding' value only when the 'IisWebApplicationName' above is a website (not a web application or virtual directory).
       -->
-      <IisWebSiteBinding>*:80:</IisWebSiteBinding>
+      <IisWebSiteBinding>*:80:www.stealfocus.co.uk</IisWebSiteBinding>
       <IisWebApplicationPoolName>ASP.NET v4.0</IisWebApplicationPoolName>
       <IisVirtualDirectoryPhysicalPath>D:\WebSites\www.stealfocus.co.uk</IisVirtualDirectoryPhysicalPath>
       <PackageDirectoryPath>$(BuildDirectoryPath)\Release\_PublishedWebsites\StealFocus.Portal.Web.UI_Package</PackageDirectoryPath>
