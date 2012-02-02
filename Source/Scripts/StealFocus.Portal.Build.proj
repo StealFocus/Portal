@@ -125,6 +125,8 @@
       <BasicAuthentication>false</BasicAuthentication>
       <DigestAuthentication>false</DigestAuthentication>
       <WindowsAuthentication>false</WindowsAuthentication>
+      <ClearDefaultDocuments>false</ClearDefaultDocuments>
+      <DefaultDocumentName>default.html</DefaultDocumentName>
     </WebSite>
   </ItemGroup>
 
